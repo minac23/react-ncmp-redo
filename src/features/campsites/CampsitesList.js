@@ -4,7 +4,7 @@ import { selectAllCampsites } from './campsitesSlice';
 
 const CampsitesList = () => {
     const campsites = selectAllCampsites();
-    
+
     return(
         <Row className='ms-auto'>
             {campsites.map((campsite) => {
@@ -16,12 +16,10 @@ const CampsitesList = () => {
                     >
                         <CampsiteCard campsite={campsite} />
                     </Col>
-                )
-            }
-
-            )}
+                );
+            })}
         </Row>
     );
-}
+};
 
 export default CampsitesList;
