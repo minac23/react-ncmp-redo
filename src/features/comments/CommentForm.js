@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, FormGroup, Label } from 'reactstrap';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { validateCommentForm } from '../../utils/validateCommentForm';
 
 const CommentForm = ({campsiteId}) => {
     const [ modalOpen, setModalOpen ] = useState(false);
@@ -13,6 +14,7 @@ const CommentForm = ({campsiteId}) => {
             text: values.commentText
         };
         console.log(comment);
+        setModalOpen(false);
     } 
 
     return (
@@ -32,6 +34,7 @@ const CommentForm = ({campsiteId}) => {
                             commentText: ''
                         }}
                         onSubmit={handleSubmit}
+                        validate={validateCommentForm}
                     >
                         <Form>
                             <FormGroup row>
@@ -50,6 +53,11 @@ const CommentForm = ({campsiteId}) => {
                                     <option>4</option>
                                     <option>5</option>
                                 </Field>
+                                <ErrorMessage
+                                    name='rating'
+                                >
+                                    {(msg) => <p className='text-danger'>{msg}</p>}
+                                </ErrorMessage>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor='author'>
@@ -61,6 +69,11 @@ const CommentForm = ({campsiteId}) => {
                                     className='form-control'
                                 >
                                 </Field>
+                                <ErrorMessage
+                                    name='author'
+                                >
+                                    {(msg) => <p className='text-danger'>{msg}</p>}
+                                </ErrorMessage>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor='commentText'>
